@@ -25,17 +25,17 @@ class LoginViewController: UIViewController {
     
     @IBAction func onLoginButton(sender: AnyObject) {
         
-        TwitterClient.sharedInstance.login()
-        
-        TwitterClient.sharedInstance.deauthorize()
-        TwitterClient.sharedInstance.fetchRequestTokenWithPath( "oauth/request_token", method: "GET", callbackURL: NSURL(string: "tweety://oauth"), scope: nil, success: {(requestToken: BDBOAuth1Credential!) -> Void in
-            //print ("I got a token")
+        TwitterClient.sharedInstance.login({ () -> () in
+            print("Logged in")
             
-            let url = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")!
-            UIApplication.sharedApplication().openURL(url)
-            })
-            {(error: NSError!) -> Void in
-                print("error: \(error.localizedDescription)")
+            self.performSegueWithIdentifier("loginSegue", sender: nil)
+            
+            
+            }) { (error:NSError) -> () in
+                print("Error: \(error.localizedDescription)")
+                
+        }
+        
         }
     }
 
@@ -49,4 +49,4 @@ class LoginViewController: UIViewController {
     }
     */
 
-}
+
