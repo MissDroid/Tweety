@@ -43,6 +43,9 @@ class TwitterClient: BDBOAuth1SessionManager {
         NSNotificationCenter.defaultCenter().postNotificationName("UserDidLogout", object: nil)
     }
     
+    //func retweet(num: String)
+    
+    
     func handleOpenUrl(url: NSURL){
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         
@@ -69,7 +72,7 @@ class TwitterClient: BDBOAuth1SessionManager {
                 let tweets = Tweet.tweetswithArray(dictionaries)
                 
                 success(tweets)
-                           print ("user: \(response)")
+                           //print ("user: \(response)")
                 
                     
                 } 

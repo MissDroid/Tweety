@@ -37,6 +37,8 @@ class TweetCell: UITableViewCell {
             
             id = tweet.num
             
+            dateLabel.text = tweetTime(tweet.timestamp!.timeIntervalSinceNow)
+            
             
             
         }
@@ -45,28 +47,30 @@ class TweetCell: UITableViewCell {
     
     func tweetTime(time: NSTimeInterval) -> String
     {
-        var timegiven = Int(time)
+        var timegiven = -Int(time)
         var timecalc: Int = 0
+        
+        print("timegiven: \(timegiven)")
         
         if timegiven == 0
         {
-            print("Now")
+            return "Now"
         }
         else if timegiven <= 60
         {
             return "\(timegiven)s"
         }
-        else if (timegiven/60 > 1 && timegiven/60 <= 60)
+        else if (timegiven/60 <= 60)
         {
             timecalc = timegiven/60
             return "\(timecalc)m"
         }
-        else if (timegiven/3600 > 1 && timegiven/3600 <= 24)
+        else if (timegiven/3600 <= 24)
         {
             timecalc = timegiven/3600
             return "\(timecalc)h"
         }
-        else if (timegiven/(3600*24) > 1 && timegiven/(3600*24) <= 365)
+        else if (timegiven/(3600*24) <= 365)
         {
             timecalc = timegiven/(3600*24)
             return "\(timecalc)d"
@@ -78,6 +82,7 @@ class TweetCell: UITableViewCell {
         }
         
         return "\(timecalc)"
+        print("timecalc: \(timecalc)")
     }
     
     override func awakeFromNib() {
