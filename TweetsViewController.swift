@@ -16,9 +16,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        TableView.delegate = self
+        TableView.dataSource = self
+        
+        
         TwitterClient.sharedInstance.homeTimeline({ (tweets: [Tweet]) -> () in
             self.tweets = tweets
-            
+            self.TableView.reloadData()
             for tweet in tweets
             {
                 print(tweet.text)
@@ -43,7 +47,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
-     //   cell.tweet = tweets?[indexPath.row]
+        cell.tweet = tweets?[indexPath.row]
         
         return cell
     }
@@ -55,9 +59,8 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     
 
     @IBAction func onLogoutButton(sender: AnyObject) {
-         //TwitterClient.sharedInstance.logout()
-            //User.currentUser?.logout()
-            User.currentUser = nil
+         TwitterClient.sharedInstance.logout()
+        
         
     }
     /*

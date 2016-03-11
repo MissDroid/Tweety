@@ -23,7 +23,62 @@ class TweetCell: UITableViewCell {
 
     @IBOutlet weak var retweetsLabel: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
+    
+    var id: String = ""
 
+    var tweet: Tweet!
+        {
+        didSet{
+            nameLabel.text = tweet.user?.name
+            usernameLabel.text = tweet.user?.username
+            tweetLabel.text = tweet.text
+            likesLabel.text = String(tweet.favCount)
+            retweetsLabel.text = String(tweet.retweetCount)
+            
+            id = tweet.num
+            
+            
+            
+        }
+    }
+
+    
+    func tweetTime(time: NSTimeInterval) -> String
+    {
+        var timegiven = Int(time)
+        var timecalc: Int = 0
+        
+        if timegiven == 0
+        {
+            print("Now")
+        }
+        else if timegiven <= 60
+        {
+            return "\(timegiven)s"
+        }
+        else if (timegiven/60 > 1 && timegiven/60 <= 60)
+        {
+            timecalc = timegiven/60
+            return "\(timecalc)m"
+        }
+        else if (timegiven/3600 > 1 && timegiven/3600 <= 24)
+        {
+            timecalc = timegiven/3600
+            return "\(timecalc)h"
+        }
+        else if (timegiven/(3600*24) > 1 && timegiven/(3600*24) <= 365)
+        {
+            timecalc = timegiven/(3600*24)
+            return "\(timecalc)d"
+        }
+        else
+        {
+            timecalc = timegiven/(3600*24*365)
+            return "\(timecalc)y"
+        }
+        
+        return "\(timecalc)"
+    }
     
     override func awakeFromNib() {
         //  weak var usernameLabel: UILabel!

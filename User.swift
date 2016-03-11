@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import AFNetworking
+
+let userDidLogoutNotification = "userDidLogoutNotification"
 
 class User: NSObject {
     
-    var name: NSString?
-    var username: NSString?
+    var name: String?
+    var username: String?
     var profileUrl: NSURL?
-    var tagline: NSString?
+    var tagline: String?
+    static var _currentUser: User?
     
     var dictionary: NSDictionary?
     
@@ -31,7 +35,15 @@ class User: NSObject {
         
         
     }
-    static var _currentUser: User?
+    /*
+    func logout() {
+        User.currentUser == nil
+        TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotification, object: nil)
+    }
+    */
+    
     class var currentUser: User?
         {
         get {
