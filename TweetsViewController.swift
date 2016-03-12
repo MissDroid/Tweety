@@ -19,6 +19,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         TableView.delegate = self
         TableView.dataSource = self
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        TableView.insertSubview(refreshControl, atIndex: 0)
+        
         
         TwitterClient.sharedInstance.homeTimeline({ (tweets: [Tweet]) -> () in
             self.tweets = tweets
@@ -33,6 +37,12 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         }
 
         // Do any additional setup after loading the view.
+    }
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        self.TableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int

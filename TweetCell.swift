@@ -34,6 +34,8 @@ class TweetCell: UITableViewCell {
             tweetLabel.text = tweet.text
             likesLabel.text = String(tweet.favCount)
             retweetsLabel.text = String(tweet.retweetCount)
+            profilephotoView.setImageWithURL((tweet.user?.profileUrl!)!)
+            
             
             id = tweet.num
             
@@ -82,7 +84,7 @@ class TweetCell: UITableViewCell {
         }
         
         return "\(timecalc)"
-        print("timecalc: \(timecalc)")
+        //print("timecalc: \(timecalc)")
     }
     
     override func awakeFromNib() {
