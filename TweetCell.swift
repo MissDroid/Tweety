@@ -40,12 +40,26 @@ class TweetCell: UITableViewCell {
             id = tweet.num
             
             dateLabel.text = tweetTime(tweet.timestamp!.timeIntervalSinceNow)
-            
-            
-            
         }
     }
+    
+    
 
+    @IBAction func onRetweet(sender: AnyObject) {
+        TwitterClient.sharedInstance.RT(Int(id)!, params: nil, completion: {(error) -> () in
+        self.retweetButton.setImage(UIImage(named: "retweet"), forState: UIControlState.Normal)
+        self.retweetsLabel.text = String(self.tweet.retweetCount + 1)
+    })
+    }
+    
+    
+    @IBAction func onLike(sender: AnyObject) {
+        TwitterClient.sharedInstance.Fav(Int(id)!, params: nil, completion: {(error) -> () in
+            self.likeButton.setImage(UIImage(named: "like"), forState: UIControlState.Normal)
+            self.likesLabel.text = String(self.tweet.favCount + 1)
+        })
+    }
+    
     
     func tweetTime(time: NSTimeInterval) -> String
     {
